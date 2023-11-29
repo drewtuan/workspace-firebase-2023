@@ -22,7 +22,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // save the data
-$('#Login').submit(function (e) {
+$('#login').submit(function (e) {
   e.preventDefault();
   // get the user name and password from form
 
@@ -61,28 +61,32 @@ $('#Login').submit(function (e) {
 
 // add  a google login choice here 
 
-//var provider = new firebase.auth.GoogleAuthProvider();
+$("#google").click(function () {
+  var provider = new firebase.auth.GoogleAuthProvider();
 
-//firebase.auth().signInWithPopup(provider).then();
+  firebase.auth()
+    .signInWithPopup(provider)
+    .then((result) => {
+      /** @type {firebase.auth.OAuthCredential} */
+      var credential = result.credential;
+
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      var token = credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+      // IdP data available in result.additionalUserInfo.profile.
+      // ...
+    }).catch((error) => {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
+    });
+});
 
 
-const auth = getAuth();
-signInWithPopup(auth, provider)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    // The signed-in user info.
-    const user = result.user;
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-  });
+
