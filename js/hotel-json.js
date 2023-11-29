@@ -1,8 +1,8 @@
 /* Change the configuration */
-
 const firebaseConfig = {
- 
+
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 

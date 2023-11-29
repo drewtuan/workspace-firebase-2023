@@ -1,12 +1,23 @@
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDZIAVnBvB-GHlaDDO2GbOFjQhVvleb344",
-  authDomain: "database2023test.firebaseapp.com",
-  projectId: "database2023test",
-  storageBucket: "database2023test.appspot.com",
-  messagingSenderId: "352598568614",
-  appId: "1:352598568614:web:b1acd2e65514f8050f8e67",
-  measurementId: "G-6EF9ZJX352"
-}; 
+
+  apiKey: "AIzaSyA6xF9mCCjNkJVp0zFVhXr9j93vflXa7Yo",
+
+  authDomain: "csci-225-assignment-8-project.firebaseapp.com",
+
+  projectId: "csci-225-assignment-8-project",
+
+  storageBucket: "csci-225-assignment-8-project.appspot.com",
+
+  messagingSenderId: "557733923398",
+
+  appId: "1:557733923398:web:67b961c036306a431ed847",
+
+  measurementId: "G-QT2RSG5EMR"
+
+};
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
@@ -14,9 +25,13 @@ firebase.initializeApp(firebaseConfig);
 $('#Login').submit(function (e) {
   e.preventDefault();
   // get the user name and password from form
+
   // You need to change this.
-  var email = 'yilianz4@gmail.com';
-  var password = 'ddsgagafda';
+  var email = 'gumball@gmail.com';
+  var password = 'trejs/;]nq2]reO';
+
+
+
 
   firebase
     .auth()
@@ -45,3 +60,29 @@ $('#Login').submit(function (e) {
 });
 
 // add  a google login choice here 
+
+//var provider = new firebase.auth.GoogleAuthProvider();
+
+//firebase.auth().signInWithPopup(provider).then();
+
+
+const auth = getAuth();
+signInWithPopup(auth, provider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+    // IdP data available using getAdditionalUserInfo(result)
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
