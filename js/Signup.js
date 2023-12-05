@@ -18,7 +18,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // save the data
-$("#signup-form").submit(function(e) {
+$("#signup-form").submit(function (e) {
   e.preventDefault();
   // get the username(email) and password from the form
   // change the following code
@@ -30,10 +30,10 @@ $("#signup-form").submit(function(e) {
   var password = $('input[name="password"]').val();
   var confirmpassword = $('input[name="cpassword"]').val();
 
-  console.log(username,email,password,confirmpassword);
+  console.log(username, email, password, confirmpassword);
 
   // create a user with email address and password
-  
+ // 12WEas';]<
   firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
@@ -41,32 +41,36 @@ $("#signup-form").submit(function(e) {
       // Signed in
       // ...
       let user = result.user;
+      console.log(result, user);
       user.updateProfile({
         displayName: username,
         displayEmail: email
-      }).then(()=>{
-        console.log(user.displayName,"You are signed up");
-      //window.location.href = "Login.html";
+      }).then(() => {
 
-      var date = "Wed, 21 NOV 2023 12:57";
+        //if (password == confirmpassword) {
+          console.log(user.displayName, "You are signed up");
+          //window.location.href = "Login.html";
 
-      var userinformation = {
-        // list what you want to put in
-        "username": user.displayName,
-        "email": email,
-        "signupDate": date
-      };
+          var date = "Wed, 21 NOV 2023 12:57";
 
-      var db = firebase.firestore();
-      db.collection("Player Table").doc(user.displayName).set(userinformation).then(() => {
-        console.log("information saved to firestore");
-        window.location.href = "Login.html";
-      }); 
+          var userinformation = {
+            // list what you want to put in
+            "username": user.displayName,
+            "email": email,
+            "signupDate": date
+          };
 
+          var db = firebase.firestore();
+          db.collection("Player Table").doc(user.displayName).set(userinformation).then(() => {
+            console.log("information saved to firestore");
+            window.location.href = "Login.html";
+          });
+
+       // }
 
       });
-       // put the information after you callback (then())
-      
+      // put the information after you callback (then())
+
     })
     .catch(error => {
       var errorCode = error.code;

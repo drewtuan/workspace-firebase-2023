@@ -49,6 +49,7 @@ $('#login').submit(function (e) {
         photoUrl = user.photoURL;
         emailVerified = user.emailVerified;
         console.log(name, email, emailVerified);
+        window.location.href="Surveyresult.html";
       }
     })
     .catch((error) => {
